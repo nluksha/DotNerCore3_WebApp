@@ -25,11 +25,32 @@ namespace WebApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public Product GetProduct([FromServices] ILogger<ProductsController> logger)
+        public Product GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
         {
             logger.LogDebug("GetProduct Action Invoked");
 
-            return context.Products.FirstOrDefault();
+            return context.Products.Find(id);
+        }
+
+        [HttpPost]
+        public void SaveProduct([FromBody] Product product)
+        {
+            context.Products.Add(product);
+            context.SaveChanges();
+        }
+
+        [HttpPut]
+        public void UpdateProduct([FromBody] Product product)
+        {
+            context.Products.Update(product);
+            context.SaveChanges();
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteProduct(long id)
+        {
+            context.Products.Remove(new Product { ProductId = id });
+            context.SaveChanges();
         }
     }
 }
