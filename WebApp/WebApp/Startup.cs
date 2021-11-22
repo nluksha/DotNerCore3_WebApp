@@ -30,6 +30,8 @@ namespace WebApp
                 options.UseSqlServer(Configuration["ConnectionStrings:ProductConnection"]);
                 options.EnableSensitiveDataLogging(true);
             });
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +52,9 @@ namespace WebApp
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
-                endpoints.MapWebService();
+                //endpoints.MapWebService();
+
+                endpoints.MapControllers();
             });
 
             SeedData.SeedDatabase(context);
