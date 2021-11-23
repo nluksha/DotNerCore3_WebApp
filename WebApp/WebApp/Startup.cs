@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 
 namespace WebApp
@@ -30,8 +31,11 @@ namespace WebApp
                 options.UseSqlServer(Configuration["ConnectionStrings:ProductConnection"]);
                 options.EnableSensitiveDataLogging(true);
             });
-
             services.AddControllers();
+            services.Configure<JsonOptions>(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
