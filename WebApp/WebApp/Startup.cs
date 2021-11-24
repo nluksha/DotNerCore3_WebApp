@@ -31,11 +31,18 @@ namespace WebApp
                 options.UseSqlServer(Configuration["ConnectionStrings:ProductConnection"]);
                 options.EnableSensitiveDataLogging(true);
             });
-            services.AddControllers();
-            services.Configure<JsonOptions>(options =>
+
+            services.AddControllers().AddNewtonsoftJson();
+
+            services.Configure<MvcNewtonsoftJsonOptions>(options =>
             {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
+
+            //services.Configure<JsonOptions>(options =>
+            //{
+            //    options.JsonSerializerOptions.IgnoreNullValues = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

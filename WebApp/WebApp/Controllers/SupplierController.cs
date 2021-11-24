@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.JsonPatch;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -30,6 +31,20 @@ namespace WebApp.Controllers
             }
 
             return supploer;
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<Supplier> PatchSupplier(long id, JsonPatchDocument<Supplier> patchDocument)
+        {
+            Supplier s = await context.Suppliers.FindAsync(id);
+
+            if (s != null)
+            {
+                patchDocument.ApplyTo(s);
+                await context.SaveChangesAsync();
+            }
+
+            return s;
         }
     }
 }
