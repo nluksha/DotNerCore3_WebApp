@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WebApp.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApp.Controllers
 {
@@ -27,6 +28,8 @@ namespace WebApp.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProduct(long id)
         {
             Product p = await context.Products.FindAsync(id);
