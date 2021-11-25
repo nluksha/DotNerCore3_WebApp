@@ -22,10 +22,20 @@ namespace WebApp.Controllers
         [HttpGet("string")]
         public string GetString() => "This is astring response";
 
-        [HttpGet("object")]
-        public async Task<Product> GetObject()
+        [HttpGet("object/{format?}")]
+        [FormatFilter]
+        [Produces("application/json", "application/xml")]
+        public async Task<ProductBindingTarget> GetObject()
         {
-            return await context.Products.FirstAsync();
+            var p = await context.Products.FirstAsync();
+
+            return new ProductBindingTarget
+            {
+                Name = p.Name,
+                Price = p.Price,
+                CategoryId = p.CategoryId,
+                SupplierId = p.SupplierId
+            };
         }
     }
 }
