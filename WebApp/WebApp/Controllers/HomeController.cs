@@ -32,5 +32,10 @@ namespace WebApp.Controllers
         {
             return View();
         }
+
+        public IActionResult List()
+        {
+            return View(context.Products);
+        }
     }
 }
