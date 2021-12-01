@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
@@ -19,11 +20,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Index(long id = 1)
         {
             var p = await context.Products.FindAsync(id);
-
-            if (p.CategoryId == 1)
-            {
-                return View("Watersports", p);
-            }
+            ViewBag.AveragePrice = await context.Products.AverageAsync(p => p.Price);
 
             return View(p);
         }

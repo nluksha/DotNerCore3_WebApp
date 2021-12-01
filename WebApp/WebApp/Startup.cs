@@ -35,6 +35,12 @@ namespace WebApp
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +52,8 @@ namespace WebApp
             }
 
             app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
