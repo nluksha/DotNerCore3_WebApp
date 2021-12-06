@@ -39,17 +39,6 @@ namespace WebApp
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
 
-            services.AddDistributedMemoryCache();
-            services.AddSession(options =>
-            {
-                options.Cookie.IsEssential = true;
-            });
-
-            services.Configure<RazorPagesOptions>(options => {
-                options.Conventions.AddPageRoute("/Index", "/extra/page/{id:long?}");
-            });
-
-
             services.AddSingleton<CitiesData>();
         }
 
@@ -62,7 +51,6 @@ namespace WebApp
             }
 
             app.UseStaticFiles();
-            app.UseSession();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
