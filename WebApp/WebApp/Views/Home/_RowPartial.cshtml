@@ -5,5 +5,7 @@
     <td>@Model.Price.ToString("c")</td>
     <td>@Model.CategoryId</td>
     <td>@Model.SupplierId</td>
-    <td></td>
+    <td>
+        <a asp-action="index" asp-controller="Home" asp-route-id="@Model.ProductId" class="btn btm-sm btn-info">Select</a>
+    </td>
 </tr>
