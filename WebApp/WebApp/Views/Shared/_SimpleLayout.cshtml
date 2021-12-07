@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width" />
     <link asp-href-include="/lib/twitter-bootstrap/css/*.min.css" asp-href-exclude="**/*-grid*,**/*-reboot*" asp-append-version="true" rel="stylesheet" />
     <title>@ViewBag.Title</title>
-    <script asp-src-include="lib/jquery/**/*.min.js" asp-src-exclude="**.slim.**" asp-append-version="true"></script>
 </head>
 <body>
+    <a asp-action="Index" asp-controller="Home">Home</a>
     <div class="m-2">
-        <img src="~/images/city.png" asp-append-version="true" class="m-2" />
         @RenderBody()
     </div>
 </body>

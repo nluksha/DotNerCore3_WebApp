@@ -1,0 +1,15 @@
+﻿@page "/pages/form/{id:long?}"
+@model WebApp.Pages.FormHandlerModel
+
+<div class="m-2">
+    <h5 class="bg-primary text-white text-center p-2">Html Form</h5>
+
+    <form asp-page="FormHandler" method="post">
+        <div class="form-froup">
+            <label>Name</label>
+            <input class="form-control" name="Name" value="@Model.Product.Name" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
