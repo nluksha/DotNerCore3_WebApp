@@ -1,29 +1,24 @@
 ﻿@model IEnumerable<Product>
 @{
-    Layout = null;
-} 
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-</head>
-<body>
-    <h6 class="bg-primary text-white text-center m-2 p-2">Products</h6>
-    <div class="m-2">
-        <table class="table table-sm table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var p in Model)
-                {
-                    <partial name="_RowPartial" model="p" />
-                }
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+    Layout = "_SimpleLayout";
+}
+
+<h6 class="bg-primary text-white text-center m-2 p-2">Products</h6>
+<div class="m-2">
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Supplier</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <partial name="_RowPartial" model="p" />
+            }
+        </tbody>
+    </table>
+</div>
