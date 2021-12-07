@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link href="/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link asp-href-include="/lib/twitter-bootstrap/css/*.min.css" asp-href-exclude="**/*-grid*,**/*-reboot*" asp-append-version="true" rel="stylesheet" />
     <title>@ViewBag.Title</title>
     <script asp-src-include="lib/jquery/**/*.min.js" asp-src-exclude="**.slim.**" asp-append-version="true"></script>
 </head>
