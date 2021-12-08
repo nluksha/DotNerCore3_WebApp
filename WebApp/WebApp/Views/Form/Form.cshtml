@@ -7,8 +7,16 @@
 
 <form id="htmlform" asp-action="submitform" method="post">
     <div class="form-froup">
+        <label>Id</label>
+        <input asp-for="ProductId" class="form-control" />
+    </div>
+    <div class="form-froup">
         <label>Name</label>
         <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-froup">
+        <label>Price</label>
+        <input asp-for="Price" class="form-control" />
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
