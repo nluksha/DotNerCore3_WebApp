@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 //using Microsoft.AspNetCore.Razor.TagHelpers;
 //using WebApp.TagHelpers;
+using Microsoft.AspNetCore.Antiforgery;
 using WebApp.Models;
 
 namespace WebApp
@@ -42,11 +43,15 @@ namespace WebApp
                 .AddRazorRuntimeCompilation();
 
             services.AddSingleton<CitiesData>();
-            // services.AddTransient<ITagHelperComponent, TimeTagHelperComponent>();
+
+            services.Configure<AntiforgeryOptions>(options =>
+            {
+                options.HeaderName = "X-XSRF-TOKEN";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext context, IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
             {
@@ -55,6 +60,19 @@ namespace WebApp
 
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.Use(async (context, next) =>
+            {
+                if (!context.Request.Path.StartsWithSegments("/api"))
+                {
+                    context.Response.Cookies.Append("XSRF-TOKEN",
+                        antiforgery.GetAndStoreTokens(context).RequestToken,
+                        new CookieOptions { HttpOnly = false });
+                }
+
+                await next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
