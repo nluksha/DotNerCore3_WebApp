@@ -19,8 +19,8 @@
         <input asp-for="Price" class="form-control" />
     </div>
     <div class="form-froup">
-        <label asp-for="Category.Name">Category</label>
-        <input asp-for="Category.Name" class="form-control" />
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
     </div>
     <div class="form-froup">
         <label asp-for="Supplier.Name">Supplier</label>
