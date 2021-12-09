@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,6 +14,7 @@ namespace WebApp.Pages
     {
         private DataContext context;
 
+        [BindProperty]
         public Product Product { get; set; }
 
         public FormHandlerModel(DataContext context)
@@ -27,10 +29,7 @@ namespace WebApp.Pages
 
         public IActionResult OnPost()
         {
-            foreach (var key in Request.Form.Keys.Where(k => !k.StartsWith("_")))
-            {
-                TempData[key] = string.Join(", ", Request.Form[key]);
-            }
+            TempData["Product"] = JsonSerializer.Serialize(Product);
 
             return RedirectToPage("FormResults");
         }

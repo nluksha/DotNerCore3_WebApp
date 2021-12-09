@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -32,12 +33,11 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult SubmitForm()
+        public IActionResult SubmitForm([Bind("Name", "Category")]Product product)
         {
-            foreach (var key in Request.Form.Keys)
-            {
-                TempData[key] = string.Join(", ", Request.Form[key]);
-            }
+            TempData["name"] = product.Name;
+            TempData["price"] = product.Price.ToString();
+            TempData["category"] = product.Category.Name;
 
             return RedirectToAction(nameof(Results));
         }
