@@ -7,10 +7,6 @@
 
 <form id="htmlform" asp-action="submitform" method="post">
     <div class="form-froup">
-        <label asp-for="ProductId"></label>
-        <input asp-for="ProductId" class="form-control" />
-    </div>
-    <div class="form-froup">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
     </div>
@@ -18,16 +14,6 @@
         <label asp-for="Price"></label>
         <input asp-for="Price" class="form-control" />
     </div>
-    <div class="form-froup">
-        <label asp-for="CategoryId">Category</label>
-        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
-    </div>
-    <div class="form-froup">
-        <label asp-for="Supplier.Name">Supplier</label>
-        <textarea asp-for="Supplier.Name" class="form-control"></textarea>
-    </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
-
-<button form="htmlform" asp-action="submitform" class="btn btn-primary mt-2">Submit (Outside)</button>
