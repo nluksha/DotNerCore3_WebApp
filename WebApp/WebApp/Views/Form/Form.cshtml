@@ -15,8 +15,12 @@
         <input asp-for="Price" class="form-control" />
     </div>
     <div class="form-froup">
-        <label>Category Name</label>
-        <input asp-for="Category.Name" class="form-control" />
+        <label asp-for="CategoryId"></label>
+        <input asp-for="CategoryId" class="form-control" />
+    </div>
+    <div class="form-froup">
+        <label asp-for="SupplierId"></label>
+        <input asp-for="SupplierId" class="form-control" />
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>

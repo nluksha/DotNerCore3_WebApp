@@ -20,24 +20,20 @@ namespace WebApp.Controllers
             this.context = context;
         }
 
-        public async Task<IActionResult> Index(long id = 1)
+        public async Task<IActionResult> Index(long? id)
         {
-            ViewBag.Categories = new SelectList(context.Categories, "CategoryId", "Name");
-
-            var product = await context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Supplier)
-                .FirstAsync(p => p.ProductId == id);
+            var product = await context.Products.FirstOrDefaultAsync(p => id == null || p.ProductId == id);
 
             return View("Form", product);
         }
 
         [HttpPost]
-        public IActionResult SubmitForm([Bind("Name", "Category")]Product product)
+        public IActionResult SubmitForm(Product product)
         {
             TempData["name"] = product.Name;
             TempData["price"] = product.Price.ToString();
-            TempData["category"] = product.Category.Name;
+            TempData["CategoryId"] = product.CategoryId.ToString();
+            TempData["SupplierId"] = product.SupplierId.ToString();
 
             return RedirectToAction(nameof(Results));
         }
