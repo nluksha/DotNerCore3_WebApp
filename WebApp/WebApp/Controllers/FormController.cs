@@ -30,6 +30,16 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult SubmitForm(Product product)
         {
+            if (string.IsNullOrEmpty(product.Name))
+            {
+                ModelState.AddModelError(nameof(Product.Name), "Enter a name");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Form");
+            }
+
             TempData["name"] = product.Name;
             TempData["price"] = product.Price.ToString();
             TempData["CategoryId"] = product.CategoryId.ToString();

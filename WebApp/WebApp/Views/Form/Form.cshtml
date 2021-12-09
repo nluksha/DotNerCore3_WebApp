@@ -6,22 +6,30 @@
 <h5 class="bg-primary text-white text-center p-2">Html Form</h5>
 
 <form id="htmlform" asp-action="submitform" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="form-froup">
         <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
         <input asp-for="Name" class="form-control" />
     </div>
     <div class="form-froup">
         <label asp-for="Price"></label>
+        <div><span asp-validation-for="Price" class="text-danger"></span></div>
         <input asp-for="Price" class="form-control" />
     </div>
     <div class="form-froup">
         <label asp-for="CategoryId"></label>
+        <div><span asp-validation-for="CategoryId" class="text-danger"></span></div>
         <input asp-for="CategoryId" class="form-control" />
     </div>
     <div class="form-froup">
         <label asp-for="SupplierId"></label>
+        <div><span asp-validation-for="SupplierId" class="text-danger"></span></div>
         <input asp-for="SupplierId" class="form-control" />
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
+
+<partial name="_Validation" />
