@@ -3,36 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private DataContext context;
-
-        public HomeController(DataContext context)
+        public IActionResult Index()
         {
-            this.context = context;
-        }
-
-        public async Task<IActionResult> Index(long id = 1)
-        {
-            var p = await context.Products.FindAsync(id);
-            ViewBag.AveragePrice = await context.Products.AverageAsync(p => p.Price);
-
-            return View(p);
-        }
-
-        public IActionResult Common()
-        {
-            return View();
-        }
-
-        public IActionResult List()
-        {
-            return View(context.Products);
+            return View("Message", "This is the Index action on the Home controller");
         }
     }
 }

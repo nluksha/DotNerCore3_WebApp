@@ -1,0 +1,28 @@
+﻿@page "/pages/message"
+@model WebApp.Pages.MessageModel
+
+@if (Model.Message is string)
+{
+    @Model.Message
+}
+else if (Model.Message is IDictionary<string, string>)
+{
+    var dict = Model.Message as IDictionary<string, string>;
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in dict)
+            {
+                <tr>
+                    <td>@item.Key</td>
+                    <td>@item.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
