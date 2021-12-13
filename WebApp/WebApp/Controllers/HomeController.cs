@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using WebApp.Filters;
 
 namespace WebApp.Controllers
 {
-    [RequireHttps]
+    [HttpsOnly]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -18,6 +19,12 @@ namespace WebApp.Controllers
         public IActionResult Secure()
         {
             return View("Message", "This is the Secure action on the Home controller");
+        }
+
+        [ChangeArg]
+        public IActionResult Messages(string message1, string message2 = "None")
+        {
+            return View("Message", $"{message1}, {message2}");
         }
     }
 }
