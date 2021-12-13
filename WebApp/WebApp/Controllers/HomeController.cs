@@ -9,6 +9,7 @@ using WebApp.Filters;
 namespace WebApp.Controllers
 {
     [HttpsOnly]
+    [ResultDiagnostics]
     public class HomeController : Controller
     {
         public IActionResult Index()
