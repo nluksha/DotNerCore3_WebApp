@@ -4,45 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using WebApp.Filters;
+using Microsoft.EntityFrameworkCore;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    [HttpsOnly]
-    [ResultDiagnostics]
-    [GuidResponse]
-    [GuidResponse]
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
+        private DataContext context;
+        private IEnumerable<Category> Categories => context.Categories;
+        private IEnumerable<Supplier> Supplier => context.Suppliers;
+
+        public HomeController(DataContext context)
+        {
+            this.context = context;
+        }
+
         public IActionResult Index()
         {
-            return View("Message", "This is the Index action on the Home controller");
-        }
-
-        public IActionResult Secure()
-        {
-            return View("Message", "This is the Secure action on the Home controller");
-        }
-
-        [ChangeArg]
-        public IActionResult Messages(string message1, string message2 = "None")
-        {
-            return View("Message", $"{message1}, {message2}");
-        }
-
-        [RangeException]
-        public ViewResult GenerateException(int? id)
-        {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            } else if (id > 10)
-            {
-                throw new ArgumentOutOfRangeException(nameof(id));
-            } else
-            {
-                return View("Message", $"THe value id {id}");
-            }
+            return View(context.Products.Include(p => p.Category).Include(p => p.Supplier));
         }
     }
 }

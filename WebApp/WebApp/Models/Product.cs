@@ -12,7 +12,6 @@ namespace WebApp.Models
 {
     public class Product
     {
-        [PhraseAndPriceAttribure(Phrase = "Small", Price = "100")]
         public long ProductId { get; set; }
 
         [Required]
@@ -25,12 +24,10 @@ namespace WebApp.Models
         public decimal Price { get; set; }
         
         [PrimaryKey(ContextType = typeof(DataContext), DataType = typeof(Category))]
-        [Remote("CategoryKey", "Validation", ErrorMessage = "Enter an exisitng key")]
         public long CategoryId { get; set; }
         public Category Category { get; set; }
 
         [PrimaryKey(ContextType = typeof(DataContext), DataType = typeof(Supplier))]
-        [Remote("SupplierKey", "Validation", ErrorMessage = "Enter an exisitng key")]
         public long SupplierId { get; set; }
         public Supplier Supplier { get; set; }
     }
