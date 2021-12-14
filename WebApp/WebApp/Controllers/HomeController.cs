@@ -14,7 +14,7 @@ namespace WebApp.Controllers
     {
         private DataContext context;
         private IEnumerable<Category> Categories => context.Categories;
-        private IEnumerable<Supplier> Supplier => context.Suppliers;
+        private IEnumerable<Supplier> Suppliers => context.Suppliers;
 
         public HomeController(DataContext context)
         {
@@ -40,7 +40,7 @@ namespace WebApp.Controllers
 
         public IActionResult Create()
         {
-            return View("ProductEditor", ViewModelFactory.Create(new Product(), Categories, Supplier));
+            return View("ProductEditor", ViewModelFactory.Create(new Product(), Categories, Suppliers));
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("ProductEditor", ViewModelFactory.Create(product, Categories, Supplier));
+                return View("ProductEditor", ViewModelFactory.Create(product, Categories, Suppliers));
             }
 
             product.ProductId = default;
@@ -60,5 +60,48 @@ namespace WebApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Edit (long id)
+        {
+            Product p = await context.Products.FindAsync(id);
+            ProductViewModel model = ViewModelFactory.Edit(p, Categories, Suppliers);
+
+            return View("ProductEditor", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromForm] Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("ProductEditor", ViewModelFactory.Edit(product, Categories, Suppliers));
+            }
+
+            product.Category = default;
+            product.Supplier = default;
+
+            context.Products.Update(product);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(long id)
+        {
+            Product p = await context.Products.FindAsync(id);
+            ProductViewModel model = ViewModelFactory.Delete(p, Categories, Suppliers);
+
+            return View("ProductEditor", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromForm] Product product)
+        {
+            context.Products.Remove(product);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
