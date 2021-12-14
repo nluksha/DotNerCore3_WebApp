@@ -8,13 +8,13 @@ using WebApp.Models;
 
 namespace WebApp.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel2 : PageModel
     {
         private DataContext context;
 
         public Product Product { get; set; }
 
-        public IndexModel(DataContext context)
+        public IndexModel2(DataContext context)
         {
             this.context = context;
         }

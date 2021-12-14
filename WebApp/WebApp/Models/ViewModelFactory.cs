@@ -50,6 +50,7 @@ namespace WebApp.Models
                 Product = product,
                 Categories = categories,
                 Suppliers = suppliers,
+                ReadOnly = true,
                 Theme = "danger",
                 Action = "Delete"
             };
