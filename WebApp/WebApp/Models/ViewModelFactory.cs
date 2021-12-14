@@ -20,5 +20,15 @@ namespace WebApp.Models
                 Suppliers = p == null ? Enumerable.Empty<Supplier>() : new List<Supplier> { p.Supplier }
             };
         }
+
+        public static ProductViewModel Create(Product product, IEnumerable<Category> categories, IEnumerable<Supplier> suppliers)
+        {
+            return new ProductViewModel
+            {
+                Product = product,
+                Categories = categories,
+                Suppliers = suppliers
+            };
+        }
     }
 }
