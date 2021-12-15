@@ -40,7 +40,14 @@
     <partial name="_CategoryEditor" for="Product" />
 
     <div class="form-group">
-        <label asp-for="Product.SupplierId">Supplier</label>
+        <label asp-for="Product.SupplierId">
+            Supplier
+            @if(!Model.ReadOnly)
+            {
+                <input type="hidden" name="returnPage" value="@Model.Action" />
+                <button asp-page="SupplierBreakOut" formmethod="get" formnovalidate class="btn btn-sm btn-outline-primary ml-3">Create New Supplier</button>
+            }
+        </label>
         <div>
             <span asp-validation-for="Product.SupplierId" class="text-danger"></span>
         </div>

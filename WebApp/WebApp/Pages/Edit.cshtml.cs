@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace WebApp.Pages
 {
@@ -16,11 +17,13 @@ namespace WebApp.Pages
 
         public async Task OnGetAsync(long id)
         {
-            Product p = await context.Products.FindAsync(id);
+            Product p = TempData.ContainsKey("product")
+                ? JsonSerializer.Deserialize<Product>(TempData["product"] as string)
+                : await context.Products.FindAsync(id);
             ViewModel = ViewModelFactory.Edit(p, Categories, Suppliers);
         }
 
-        public async Task<IActionResult> OnPostAsync([FromForm]Product product)
+        public async Task<IActionResult> OnPostAsync([FromForm] Product product)
         {
             await CheckNewCategory(product);
 

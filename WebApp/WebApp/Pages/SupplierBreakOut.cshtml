@@ -1,0 +1,20 @@
+﻿@page "/pages/supplier"
+@model SupplierBreakOutModel
+
+<div class="m-2">
+    <h5 class="bg-secondary text-white text-center p-2">New Supplier</h5>
+
+    <form asp-page="SupplierBreakOut" method="post">
+        <div class="form-cntrol">
+            <label asp-for="Supplier.Name"></label>
+            <input asp-for="Supplier.Name" class="form-control" />
+        </div>
+        <div class="form-cntrol">
+            <label asp-for="Supplier.City"></label>
+            <input asp-for="Supplier.City" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Create</button>
+        <a asp-page="@Model.ReturnPage" asp-route-id="@Model.ProductId" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+</div> 

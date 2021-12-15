@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace WebApp.Pages
 {
@@ -15,7 +16,8 @@ namespace WebApp.Pages
 
         public void OnGet()
         {
-            ViewModel = ViewModelFactory.Create(new Product(), Categories, Suppliers);
+            Product p = TempData.ContainsKey("product") ? JsonSerializer.Deserialize<Product>(TempData["product"] as string) : new Product();
+            ViewModel = ViewModelFactory.Create(p, Categories, Suppliers);
         }
 
         public async Task<IActionResult> OnPostAsync([FromForm] Product product)
