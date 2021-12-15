@@ -20,6 +20,8 @@ namespace WebApp.Pages
 
         public async Task<IActionResult> OnPostAsync([FromForm] Product product)
         {
+            await CheckNewCategory(product);
+
             if (!ModelState.IsValid)
             {
                 ViewModel = ViewModelFactory.Create(product, Categories, Suppliers);

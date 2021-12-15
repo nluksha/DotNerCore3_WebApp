@@ -19,5 +19,19 @@ namespace WebApp.Pages
         {
             this.context = context;
         }
+
+        protected async Task CheckNewCategory(Product product)
+        {
+            if (product.CategoryId == -1 && !string.IsNullOrEmpty(product.Category?.Name))
+            {
+                context.Categories.Add(product.Category);
+                await context.SaveChangesAsync();
+
+                product.CategoryId = product.Category.CategoryId;
+                ModelState.Clear();
+
+                TryValidateModel(product);
+            }
+        }
     }
 }
